@@ -2,8 +2,8 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := sed
-CC        := g++
+NAME        := harlfilter
+CC        := g++ -std=c++98
 FLAGS    := -Wall -Wextra -Werror 
 #HEADER = N/A 
 OBJ_DIR = ./obj
