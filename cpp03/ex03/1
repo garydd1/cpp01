@@ -1,0 +1,40 @@
+#include <iostream>
+
+class A {
+public:
+    A(int v1, int v2, int v3) : val1(v1), val2(v2), val3(v3) {}
+
+    void printValues() {
+        std::cout << "val1: " << val1 << " | val2: " << val2 << " | val3: " << val3 << std::endl;
+    }
+
+protected:
+    int val1, val2, val3;
+};
+
+class B : virtual public A {
+public:
+    B() : A(1, 2, 3) {}
+};
+
+class C : virtual public A {
+public:
+    C() : A(4, 5, 6) {}
+};
+
+class D : public B, public C {
+public:
+    D() : A(B::val1, C::val2, B::val3), B(), C() {}
+
+    void printDValues() {
+        std::cout << "D values: ";
+        std::cout << "val1: " << B::val1 << " | val2: " << C::val2 << " | val3: " << B::val3 << std::endl;
+    }
+};
+
+int main() {
+    D d;
+    d.printDValues();  // Output: val1: 1 | val2: 5 | val3: 3
+    return 0;
+}
+

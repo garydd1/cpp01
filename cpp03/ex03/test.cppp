@@ -1,0 +1,64 @@
+#include <iostream>
+
+class A {
+public:
+    A(void) : val1(42), val2(42), val3(42), _name("A") {
+        std::cout << "A default constructor called" << std::endl;
+    }
+
+    A(int val1, int val2, int val3) : val1(val1), val2(val2), val3(val3) {
+        std::cout << "A param constructor called" << std::endl;
+    }
+
+    void printValues() {
+        std::cout << "val1: " << val1 << " | val2: " << val2 << " | val3: " << val3 << "Name:"<< _name << std::endl;
+    }
+
+protected:
+    int val1, val2, val3;
+	std::string _name;
+};
+
+class B : virtual public A {
+public:
+    B() {
+        std::cout << "B default constructor called" << std::endl;
+		val1 = 1;
+		val2 = 2;
+		val3 = 3;
+		
+    }
+};
+
+class C : virtual public A {
+public:
+    C(){
+        std::cout << "C default constructor called " << std::endl;
+		val1 = 4;
+		val2 = 5;
+		val3 = 6;
+    }
+};
+
+class D : public B, public C {
+public:
+    D(){
+        std::cout << "D default constructor called" << std::endl;
+		_name = "D";
+		this->val1 = B::val1;
+	}
+
+    void printDValues() {
+        std::cout << "D values: ";
+        std::cout << "val1: " << val1 << " | val2: " << val2 << " | val3: " << val3 << std::endl;
+		std::cout << "Name: " << _name << " | Name: " << A::_name << " | DNAME: " << _name <<std::endl;
+	}
+private:
+	std::string _name;
+};
+
+int main() {
+    D d;
+    d.printDValues();  // Output: val1: 1 | val2: 5 | val3: 3
+    return 0;
+}
